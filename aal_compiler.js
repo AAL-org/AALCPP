@@ -364,6 +364,8 @@ child.stdout.on('data', function(data) {
 
 finish("compile.");
 
+//
+
 fs.unlinkSync('./program.cpp');
 
 process.exit(0);
