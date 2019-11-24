@@ -260,7 +260,7 @@ function compile(instructions) {
         if(i != 0) cpi += " ";
         var instruction = instructions[i];
 
-        atl('./log', '\n\n' + 'STRUCT: ' + instructions[parseInt(i - 1)] + '\n');
+        atl('\n\n' + 'STRUCT: ' + instructions[parseInt(i - 1)] + '\n');
 
         if(instruction == "FUNCTION") {
             
@@ -306,7 +306,8 @@ function compile(instructions) {
 
             if(states.concat) { prefix = `to_string(`; suffix = `)`; }
 
-            cpi += `${prefix}${parseInt(instruction.slice(6).slice(0, -1))}${suffix}`;
+            console.log(instruction, instruction.slice(6).slice(0, -1));
+            cpi += `${prefix}${parseFloat(instruction.slice(6).slice(0, -1))}${suffix}`;
             
             continue;
         }
