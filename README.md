@@ -9,6 +9,8 @@ Dont. Just Dont.
 ## Features
  - Can't do math.
  - Can't do variables / constants.
+ - Can't do anything that isn't an int / string
+ - Much, **Much** more!
 
 ---
 ## Add more features.
@@ -21,3 +23,10 @@ no.
 3. The same file then converts those tokens into C++.
 4. That C++ file is then compiled by node (if you have g++ installed).
 5. The end.
+
+---
+## Syntax
+`/?` For comments, one line at a time because fuck you.
+`fn <name>(args) {}` For functions. You must have a main function, it dosen't need any args.
+`""` Strings, not single quotes, those are for litterals.
+`0-9` Numbers.
