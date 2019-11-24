@@ -51,8 +51,8 @@ function lex(contents) {
     var lines = contents.split('\n');
     for(var i in lines) {
 
-        if(lines[i].indexOf('?/') > -1) {
-            newContents += lines[i].slice(0, lines[i].indexOf('?/'));
+        if(lines[i].indexOf('/?') > -1) {
+            newContents += lines[i].slice(0, lines[i].indexOf('/?'));
         } else {
             newContents += lines[i];
         }
