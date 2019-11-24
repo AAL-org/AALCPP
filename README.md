@@ -9,7 +9,7 @@ Dont. Just Dont.
 ## Features
  - Can't do math.
  - Can't do variables / constants.
- - Can't do anything that isn't an int / string
+ - Can't do anything that isn't an int / string / float
  - Much, **Much** more!
 
 ---
