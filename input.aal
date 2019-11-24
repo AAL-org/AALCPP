@@ -2,6 +2,6 @@ fn main() {
 
     ?/ A Commented Line!
 
-    print("Happy " + 1 + "st Birthday to AAL");
+    print("Happy " + 1.25 + "st Birthday to AAL");
 
 }

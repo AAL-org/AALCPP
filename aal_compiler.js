@@ -114,10 +114,17 @@ function lex(contents) {
             
         } else if(number != "") {
 
-            tokens.push(`INT(${number})`);
+            if(char == ".") {
+                number += "."
+            } else {
 
-            clearToken();
-            number = "";
+                if(number.indexOf('.') > -1) tokens.push(`FLOAT(${number})`);
+                else tokens.push(`INT(${number})`);
+
+                clearToken();
+                number = "";
+        
+            }
 
         }
 
@@ -292,6 +299,17 @@ function compile(instructions) {
             
             continue;
         }
+ 
+        if(instruction.indexOf("FLOAT(") == 0) {
+
+            var prefix = "", suffix = "";
+
+            if(states.concat) { prefix = `to_string(`; suffix = `)`; }
+
+            cpi += `${prefix}${parseInt(instruction.slice(6).slice(0, -1))}${suffix}`;
+            
+            continue;
+        }
 
         if(instruction.indexOf("NAME(") == 0) {
             cpi += instruction.slice(5).slice(0, -1);
@@ -338,7 +356,7 @@ fs.writeFileSync('./program.cpp', cpi);
 atl('\n[+ ALC +] Started compile.');
 startTime = performance.now();
 
-var child = require('child_process').exec(`g++ ${__dirname}/program.cpp -o output_exe`); 
+var child = require('child_process').exec(`g++ ${__dirname}/program.cpp`); 
 child.stdout.on('data', function(data) {
     atl(`[+ G++ > ALC +] ${data.toString()}`, true); 
 });
