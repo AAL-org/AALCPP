@@ -7,10 +7,9 @@ Dont. Just Dont.
 
 ---
 ## Features
- - Can't do math.
- - Can't do variables / constants.
- - Can't do anything that isn't an int / string / float
- - Much, **Much** more!
+ - Can't do constants. 
+ - Can't do anything that isn't an int / string / float. 
+ - Much, **Much** more! 
 
 ---
 ## Add more features.
@@ -26,7 +25,9 @@ no.
 
 ---
 ## Syntax
-`/?` For comments, one line at a time because fuck you.
-`fn <name>(args) {}` For functions. You must have a main function, it dosen't need any args.
-`""` Strings, not single quotes, those are for litterals.
-`0-9` Numbers.
+`/?` For comments, one line at a time because fuck you. 
+`fn <name>(args) {}` For functions. You must have a main function, it dosen't need any args. 
+`int <name>, float <name> & str <name>` For variables. 
+`""` Strings, not single quotes, those are for litterals. 
+`0-9` Numbers. 
+`:` Declare variables, e.g `int anAwfulVariable : 1;`

@@ -4,6 +4,9 @@ const fs = require('fs');
 //Keep track of tokens
 var tokens = [];
 
+//Variables
+var variables = [];
+
 //Keep track of time between comp start & end
 const { performance } = require('perf_hooks');
 var startTime;
@@ -23,9 +26,6 @@ function main(file_name) {
     var tokens = lex(data);
     finish('tokenization');
     
-    // if(fs.existsSync('./LOCKFILE')) error(2);
-    // fs.writeFileSync('./LOCKFILE', tokens.join('\n'));
-    
     compile(tokens);
     
 }
@@ -39,11 +39,13 @@ function open_file(path) {
 //Lexer
 function lex(contents) {
 
-    var states = {parentheses: 0, string: 0, comment: 0, name: 0};
+    var states = {parentheses: 0, string: 0, comment: 0, name: 0, decloration: 0};
     var token = "";
     
     var string = "";
     var number = "";
+
+    var decType = "";
 
     var newContents = "";
 
@@ -67,7 +69,6 @@ function lex(contents) {
 
     atl(`\nLoaded File:\n${contents}`)
 
-
     for(var i in contents) {
 
         var char = contents[i];
@@ -78,6 +79,15 @@ function lex(contents) {
 
         atl(`\n\nChatacter [${i}]:\n\nChar:\n${char}\n\nToken:\n'${token}'\n\nTokens:\n[${tokens.join(' | ')}]\n\nStates:\n${JSON.stringify(states)}`);
 
+        /** Variable Handler **/
+        for(var i in variables) {
+            if(token == variables[i].name) {
+                tokens.push(`VAR(${variables[i].name})`);
+                clearToken();
+                continue;
+            }            
+        }
+
         /** Name Decloration **/
         if(states.name == 1) {
             if(char.match(/(\W)/g)) {
@@ -87,10 +97,23 @@ function lex(contents) {
                     continue;
                 }
 
+                if(char == "(") token = token.slice(0, token.length -1);
+
                 states.name = 0;
-                tokens.push(`NAME(${token.slice(0, token.length - 1)})`);
-                
-                token = token.slice(0, token.length - 1)
+                token = token.trim();
+
+                if(states.decloration == 1) {
+                    variables.push({name: token, type: decType});
+                    tokens.push(`VAR(${token})`)
+                    decType = "";
+                } else if(states.decloration == 0) {
+                    tokens.push(`NAME(${token})`);
+                }
+
+                clearToken();
+
+            } else {
+                continue;
             }
         }
 
@@ -108,7 +131,6 @@ function lex(contents) {
 
         /** Number Handler **/
         if(char.match(/[0-9]/)) {
-
             number += char;
             continue;
             
@@ -127,18 +149,43 @@ function lex(contents) {
             }
 
         }
-
         /** Detect Chunks **/
         switch (token) {
             
             case "print":
                 tokens.push("PRINT");
+                clearToken();
             break;
 
             case "fn": 
+                decType = "FUNCTION";
                 tokens.push("FUNCTION");
                 clearToken();
                 states.name = 1;
+            break;
+
+            case "int":
+                decType = "INT";
+                tokens.push("DECLORATION(int)");
+                clearToken();
+                states.name = 1;
+                states.decloration = 1;
+            break;
+
+            case "str":
+                decType = "STRING";
+                tokens.push("DECLORATION(string)");
+                clearToken();
+                states.name = 1;
+                states.decloration = 1;
+            break;
+
+            case "float":
+                decType = "FLOAT";
+                tokens.push("DECLORATION(float)");
+                clearToken();
+                states.name = 1;
+                states.decloration = 1;
             break;
 
             default:
@@ -155,7 +202,7 @@ function lex(contents) {
                     case "(":
                         states.parentheses++;
                         tokens.push("(");
-                        continue;
+                        clearToken();
                     break;
                         
                     case ")":
@@ -165,6 +212,11 @@ function lex(contents) {
 
                     case ";":
                         tokens.push("END");
+                        clearToken();
+                    break;
+
+                    case ":":
+                        tokens.push("ASSIGN");
                         clearToken();
                     break;
 
@@ -244,7 +296,6 @@ function error(error_id, args) {
 
 //Compiler (Actually a transpiller but whatever)
 function compile(instructions) {
-
     
     var cpi = "";
     var states = {waitingForBrackets: false, concat: false};
@@ -253,10 +304,10 @@ function compile(instructions) {
 
     cpi += `#include <iostream>\nusing namespace std;\n`;
     
+    startTime = performance.now();
+    
     for(var i in instructions) {
-            
-        startTime = performance.now();
-        
+                   
         if(i != 0) cpi += " ";
         var instruction = instructions[i];
 
@@ -275,6 +326,12 @@ function compile(instructions) {
             cpi += `cout << `;
             states.concat = true;
 
+            continue;
+        }
+
+        if(instruction.indexOf("DECLORATION(") == 0) {
+            cpi += `${instruction.slice(12).slice(0, -1)}`;
+            
             continue;
         }
 
@@ -306,9 +363,32 @@ function compile(instructions) {
 
             if(states.concat) { prefix = `to_string(`; suffix = `)`; }
 
-            console.log(instruction, instruction.slice(6).slice(0, -1));
             cpi += `${prefix}${parseFloat(instruction.slice(6).slice(0, -1))}${suffix}`;
             
+            continue;
+        }
+
+        if(instruction == "ASSIGN") {
+            cpi += "=";
+            continue;  
+        }
+
+        if(instruction.indexOf("VAR(") == 0) {
+            
+            var prefix = "", suffix = "";
+
+            var variable = getVar(instruction.slice(4).slice(0, -1));
+
+            if(states.concat) {
+                if(variable.type == "INT") cpi += `to_string(${instruction.slice(4).slice(0, -1)})`;
+                if(variable.type == "FLOAT") cpi += `to_string(${instruction.slice(4).slice(0, -1)})`;
+                if(variable.type == "STRING") cpi += `${instruction.slice(4).slice(0, -1)}`;
+                
+                continue;
+            }
+            
+            cpi += `${prefix}${instruction.slice(4).slice(0, -1)}${suffix}`;
+
             continue;
         }
 
@@ -342,33 +422,28 @@ function compile(instructions) {
             continue;
         }
 
-        cpi += instruction;
+        cpi = cpi.trim() + instruction;
         
-        // console.log(instruction);
-
+        
 }
 
-// console.log(instructions);
+    finish('transpilling.');
 
-finish('transpilling.');
+    fs.writeFileSync('./program.cpp', cpi);
 
-fs.writeFileSync('./program.cpp', cpi);
+    atl('\n[+ ALC +] Started compile.');
+    startTime = performance.now();
 
-atl('\n[+ ALC +] Started compile.');
-startTime = performance.now();
+    var child = require('child_process').exec(`g++ ${__dirname}/program.cpp`); 
+    child.stdout.on('data', function(data) {
+        atl(`[+ G++ > ALC +] ${data.toString()}`, true); 
+    });
 
-var child = require('child_process').exec(`g++ ${__dirname}/program.cpp`); 
-child.stdout.on('data', function(data) {
-    atl(`[+ G++ > ALC +] ${data.toString()}`, true); 
-});
+    finish("compile.");
 
-finish("compile.");
+    fs.unlinkSync('./program.cpp');
 
-//
-
-fs.unlinkSync('./program.cpp');
-
-process.exit(0);
+    process.exit(0);
 
 }
 
@@ -382,4 +457,11 @@ function finish(task) {
 function atl(text, log) {
     fs.appendFileSync('./logFile', text);
     if(log === true) console.log(text);
+}
+
+function getVar(name) {
+    for(var i in variables) {
+        if(variables[i].name == name) return variables[i];
+    }
+    return false;
 }
