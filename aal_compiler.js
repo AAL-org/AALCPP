@@ -13,14 +13,24 @@ var startTime;
 
 /** Start Program **/
 (function() {
-    fs.writeFileSync('./logFile', '');
+
+    var inpFile = process.cwd() + '/' + process.argv[2];
+
+    // console.log(inpFile);
+
+    if (!inpFile || !fs.existsSync(inpFile) || inpFile.indexOf('.aal') <= -1) error(0);
+
+
     atl(`\n[+ ALC +] Started tokenization. (${Date.now()})\n`, true);
     startTime = performance.now();
-    main("./input.aal");
+    main(inpFile);
 })();
 
 //Main function
 function main(file_name) {
+
+    if(fs.existsSync('./program.cpp')) fs.unlinkSync('./program.cpp');
+
     var data = open_file(file_name);
     
     var tokens = lex(data);
@@ -278,7 +288,7 @@ function error(error_id, args) {
     switch (error_id) {
         
         case 0:
-            atl(`[+ ALC +] Process terminated successfully!`, true);
+            atl(`[- ALC -] No valid '.aal' file provided.`, true);
         break;
 
         case 1:
@@ -434,14 +444,12 @@ function compile(instructions) {
     atl('\n[+ ALC +] Started compile.');
     startTime = performance.now();
 
-    var child = require('child_process').exec(`g++ ${__dirname}/program.cpp`); 
+    var child = require('child_process').exec(`g++ ${process.cwd()}/program.cpp -o ${process.cwd()}/${process.argv[2].split('.')[0]}.out`); 
     child.stdout.on('data', function(data) {
         atl(`[+ G++ > ALC +] ${data.toString()}`, true); 
     });
 
     finish("compile.");
-
-    fs.unlinkSync('./program.cpp');
 
     process.exit(0);
 
