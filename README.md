@@ -1,8 +1,8 @@
-# AAL
-**A**n **A**wful **L**anguage
+# AALAN
+**A**n **A**wful **L**anguage **A**midst **N**ot bad ones
 
 ---
-## Why use AAL?
+## Why use AALAN?
 Dont. Just Dont.
 
 ---
