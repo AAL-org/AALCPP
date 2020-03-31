@@ -1327,7 +1327,7 @@ yyreduce:
 
   case 7:
 #line 34 "compiler/grammar.y"
-                                    {}
+                                    { compiler::SyntaxTree *p = reinterpret_cast<compiler::SyntaxTree *>(yyvsp[0]); std::cout << "To Code: " << p -> toCode() << std::endl; }
 #line 1332 "grammar.tab.c"
     break;
 

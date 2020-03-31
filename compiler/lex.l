@@ -1,8 +1,13 @@
 %option noyywrap
 
 %{
+
     #include "grammar.tab.h"
     #include <stdio.h>
+
+    #include "SyntaxTree/SyntaxTree.hpp"
+    #include "SyntaxTree/Name.hpp"
+
 %}
 
 /** Regex Identifiers **/
@@ -48,7 +53,7 @@ linefeed                \n
 {denary_float}          { return DENARY_FLOAT;        }
 
 {function}              { return FUNCTION; }
-{name}                  { yylval = nullptr; return NAME;     }
+{name}                  { yylval = reinterpret_cast<void *>(new compiler::Name(yytext)); return NAME;     }
 
 "("                     { return LEFT_BRACKET;  }
 ")"                     { return RIGHT_BRACKET; }

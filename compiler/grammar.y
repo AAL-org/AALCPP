@@ -31,7 +31,7 @@ statement:
     name SEMICOLON                  { std::cout << ""; }
 
 name:
-    NAME                            {}
+    NAME                            { compiler::SyntaxTree *p = reinterpret_cast<compiler::SyntaxTree *>($1); std::cout << "To Code: " << p -> toCode() << std::endl; }
 
 %%
 

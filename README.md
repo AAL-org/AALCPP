@@ -17,3 +17,8 @@ AALAN is never going to be amazing, please dont ask or try to make it.
 It's not going to be the fastest, the most optimized for ram or what have you.
 
 Please don't expect too much.
+
+---
+## For Now
+Untill this changes, or you see a release pop up, this branch will just be used to store updates.
+Don't expect anything to work or even compile, but feel free to let us know if we could be doing something a little better.

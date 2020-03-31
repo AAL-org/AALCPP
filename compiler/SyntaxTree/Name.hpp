@@ -15,8 +15,12 @@ namespace compiler {
             virtual ~Name() = default; 
 
             virtual std::string toCode() const {
-                
+                return name;
             }
+
+        private:
+
+            std::string name;
 
     };
 
