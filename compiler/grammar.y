@@ -5,7 +5,7 @@
     #include <stdlib.h>
     #include <iostream>
 
-    #include "SyntaxTree/SyntaxTree.hpp"
+    #include "SyntaxTree/Includes.hpp"
 
     int yylex (void);
     void yyerror (char const *);

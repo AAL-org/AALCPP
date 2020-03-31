@@ -5,8 +5,7 @@
     #include "grammar.tab.h"
     #include <stdio.h>
 
-    #include "SyntaxTree/SyntaxTree.hpp"
-    #include "SyntaxTree/Name.hpp"
+    #include "SyntaxTree/Includes.hpp"
 
 %}
 

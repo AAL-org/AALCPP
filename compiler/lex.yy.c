@@ -477,16 +477,15 @@ char *yytext;
     #include "grammar.tab.h"
     #include <stdio.h>
 
-    #include "SyntaxTree/SyntaxTree.hpp"
-    #include "SyntaxTree/Name.hpp"
+    #include "SyntaxTree/Includes.hpp"
 
-#line 483 "lex.yy.c"
+#line 482 "lex.yy.c"
 /** Regex Identifiers **/
 /* String Based */
 /* Unsigned Integers */
 /* Floats */
 /* Bruh */
-#line 489 "lex.yy.c"
+#line 488 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -706,10 +705,10 @@ YY_DECL
 		}
 
 	{
-#line 47 "compiler/lex.l"
+#line 46 "compiler/lex.l"
 
 
-#line 712 "lex.yy.c"
+#line 711 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -769,87 +768,87 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 49 "compiler/lex.l"
+#line 48 "compiler/lex.l"
 { return HEXADECIMAL_INTEGER; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 50 "compiler/lex.l"
+#line 49 "compiler/lex.l"
 { return OCTAL_INTEGER;       }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 51 "compiler/lex.l"
+#line 50 "compiler/lex.l"
 { return DENARY_INTEGER;      }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 52 "compiler/lex.l"
+#line 51 "compiler/lex.l"
 { return BINARY_INTEGER;      }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 53 "compiler/lex.l"
+#line 52 "compiler/lex.l"
 { return DENARY_FLOAT;        }
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 55 "compiler/lex.l"
+#line 54 "compiler/lex.l"
 { return FUNCTION; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 56 "compiler/lex.l"
+#line 55 "compiler/lex.l"
 { yylval = reinterpret_cast<void *>(new compiler::Name(yytext)); return NAME;     }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 58 "compiler/lex.l"
+#line 57 "compiler/lex.l"
 { return LEFT_BRACKET;  }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 59 "compiler/lex.l"
+#line 58 "compiler/lex.l"
 { return RIGHT_BRACKET; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 60 "compiler/lex.l"
+#line 59 "compiler/lex.l"
 { return LEFT_BRACE;    }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 61 "compiler/lex.l"
+#line 60 "compiler/lex.l"
 { return RIGHT_BRACE;   }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 63 "compiler/lex.l"
+#line 62 "compiler/lex.l"
 { return COLON;      }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 64 "compiler/lex.l"
+#line 63 "compiler/lex.l"
 { return SEMICOLON; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 66 "compiler/lex.l"
+#line 65 "compiler/lex.l"
 
 	YY_BREAK
 case 15:
 /* rule 15 can match eol */
 YY_RULE_SETUP
-#line 67 "compiler/lex.l"
+#line 66 "compiler/lex.l"
 yylineno++;
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 69 "compiler/lex.l"
+#line 68 "compiler/lex.l"
 ECHO;
 	YY_BREAK
-#line 852 "lex.yy.c"
+#line 851 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1857,7 +1856,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 69 "compiler/lex.l"
+#line 68 "compiler/lex.l"
 
 
 #include <stdio.h>
