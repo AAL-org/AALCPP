@@ -1,0 +1,34 @@
+Grammar:
+
+Function - fn
+
+Integers - int
+Strings - str
+Boolean - bool
+Float - float
+Double - double
+
+Multiplication - *
+Devision - /
+Subtraction - -
+Addition - +
+
+Greter Than - >
+Greater Than Or Equal To - >=
+Less Than - <
+Less Than Or Equal To - <=
+Equal - =
+Not Equal - !=
+
+Increment By One - ++
+Decrement By One - --
+
+Increment Amount - :+
+Decrement Amount - :-
+
+Assignment - :
+
+Comments - /?
+
+stdout - print()
+stdin - read()
