@@ -51,8 +51,8 @@ linefeed                \n
 {binary_integer}        { return BINARY_INTEGER;      }
 {denary_float}          { return DENARY_FLOAT;        }
 
-{function}              { return FUNCTION; }
-{name}                  { yylval = reinterpret_cast<void *>(new compiler::Name(yytext)); return NAME;     }
+{function}              { return FUNCTION;                                  }    
+{name}                  { yylval = new compiler::Name(yytext); return NAME; }
 
 "("                     { return LEFT_BRACKET;  }
 ")"                     { return RIGHT_BRACKET; }

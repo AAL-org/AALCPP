@@ -795,12 +795,12 @@ case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
 #line 54 "compiler/lex.l"
-{ return FUNCTION; }
+{ return FUNCTION;                                  }    
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 55 "compiler/lex.l"
-{ yylval = reinterpret_cast<void *>(new compiler::Name(yytext)); return NAME;     }
+{ yylval = new compiler::Name(yytext); return NAME; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP

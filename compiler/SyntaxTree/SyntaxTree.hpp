@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <string>
-#include <memory>
 
 namespace compiler {
     
@@ -17,7 +16,7 @@ namespace compiler {
 
         protected:
 
-            std::vector<std::unique_ptr<SyntaxTree>>
+            std::vector<SyntaxTree>
                 children;
 
     };
