@@ -1,0 +1,23 @@
+All Programs Must Contain A Main Funcntion
+fn main() {    
+
+    str the_secret: "o.o";
+    int the_password: 1234;
+
+    print("The secret is '" + the_secret + "' and the password is '" + the_password + "'");
+
+}
+
+Functions with returns
+fn addTwoIntegers(int a, int b) {
+
+    int result: a + b;
+    return result;
+
+}
+
+Loops
+for(int x: 0, x < 100, x++) {
+    if(x / 2 = 0) print(x + "Is devisible by two!");
+    else continue;
+}

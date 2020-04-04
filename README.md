@@ -2,36 +2,23 @@
 **A**n **A**wful **L**anguage **A**midst **N**ot bad ones
 
 ---
-## Why use AALAN?
-Dont. Just Dont.
+## Two Point Oh?
+Two point oh? is an attempt at making aal an actuall, somewhat passable language.
 
 ---
-## Syntax
-`/?` For comments, one line at a time because fuck you. 
-`fn <name>(args) {}` For functions. You must have a main function, it dosen't need any args. 
-`int <name>, float <name> & str <name>` For variables. 
-`""` Strings, not single quotes, those are for litterals. 
-`0-9` Numbers. 
-`:` Declare variables, e.g `int anAwfulVariable : 1;`
+## Changes
+For starters, we arent transpilling through Node.js anymore, we've switched to c and c++ using Flex and Bison.
+We're also actually adding useful features.
+Its a massive WIP, but hopefully by the end, we'll have a language that you could use if need be.
 
 ---
-## Compiler
-To compile your '.aal' program, run `node <path to aal compiler> <'.aal' input file>`;
+## What it isn't
+AALAN is never going to be amazing, please dont ask or try to make it.
+It's not going to be the fastest, the most optimized for ram or what have you.
+
+Please don't expect too much.
 
 ---
-## Features
- - Can't do constants. 
- - Can't do anything that isn't an int / string / float. 
- - Much, **Much** more! 
-
----
-## Add more features.
-no.
-
----
-## How does it work?
-1. Javascript reads your aal file, tokenizing it.
-2. Those tokens are read by the **SAME FILE** making that process pointless.
-3. The same file then converts those tokens into C++.
-4. That C++ file is then compiled by node (if you have g++ installed).
-5. The end.
+## For Now
+Untill this changes, or you see a release pop up, this branch will just be used to store updates.
+Don't expect anything to work or even compile, but feel free to let us know if we could be doing something a little better.
